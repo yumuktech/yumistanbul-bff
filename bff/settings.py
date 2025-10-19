@@ -63,19 +63,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'bff.wsgi.application'
 
 DATABASE_URL = os.getenv('DATABASE_URL')
-if DATABASE_URL:
-    import dj_database_url
+if not DATABASE_URL:
+    raise ValueError(
+        'DATABASE_URL environment variable is required. '
+        'For local dev, create a .env file with DATABASE_URL=sqlite:///db.sqlite3 '
+        'For production, use a PostgreSQL connection string.'
+    )
 
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, conn_health_checks=True),
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, conn_health_checks=True),
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

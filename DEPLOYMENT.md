@@ -4,16 +4,25 @@
 
 ### Prerequisites
 1. Vercel account connected to GitHub
-2. PostgreSQL database (recommended: Vercel Postgres or Neon)
+2. **PostgreSQL database (REQUIRED)** - Recommended options:
+   - **Vercel Postgres** (easiest, built-in integration)
+   - **Neon** (generous free tier)
+   - **Supabase** (includes auth features)
+   - **Railway** or **Render** Postgres
+
+**⚠️ CRITICAL: SQLite will NOT work on Vercel due to read-only filesystem. You MUST use PostgreSQL.**
 
 ### Environment Variables
 Set these in your Vercel project settings:
 
 **Required:**
 - `DJANGO_SECRET_KEY` - Generate with `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`
-- `DATABASE_URL` - PostgreSQL connection string (format: `postgresql://user:password@host:port/dbname`)
+- **`DATABASE_URL`** - **REQUIRED!** PostgreSQL connection string (format: `postgresql://user:password@host:port/dbname`)
+  - Get from Vercel Postgres, Neon, Supabase, etc.
+  - Example: `postgresql://user:pass@db.example.com:5432/dbname`
 - `DJANGO_DEBUG` - Set to `0` for production
 - `DJANGO_ALLOWED_HOSTS` - Your frontend domain(s), comma-separated (e.g., `yourapp.vercel.app,yourdomain.com`)
+- `FRONTEND_URL` - Your production frontend URL (e.g., `https://your-frontend.vercel.app`)
 
 **Auto-set by Vercel:**
 - `VERCEL_URL` - Automatically provided by Vercel
