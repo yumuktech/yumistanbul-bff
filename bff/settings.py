@@ -103,10 +103,12 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'https://yumistanbul-spa.vercel.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
+    'https://yumistanbul-spa.vercel.app',
 ]
 
 # Add frontend origin from environment
